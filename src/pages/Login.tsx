@@ -10,14 +10,34 @@ const Login = () => {
   const navigate = useNavigate();
   const setUser = useUserStore(state => state.setUser);
 
+  const validateUserId = (id: string) => {
+    // 檢查長度是否為 16 位
+    if (id.length !== 16) {
+      return '好友ID必須是16位數字';
+    }
+
+    // 檢查是否只包含數字
+    if (!/^\d+$/.test(id)) {
+      return '好友ID只能包含數字';
+    }
+
+    // 檢查是否全部都是相同的數字
+    if (/^(\d)\1+$/.test(id)) {
+      return '無效的好友ID';
+    }
+
+    return null; // 返回 null 表示驗證通過
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // 驗證用戶ID格式
-    if (!/^\d{16}$/.test(userId)) {
-      setError('請輸入16位數字好友ID');
+    const error = validateUserId(userId);
+    if (error) {
+      // 顯示錯誤信息
+      alert(error);
       setLoading(false);
       return;
     }

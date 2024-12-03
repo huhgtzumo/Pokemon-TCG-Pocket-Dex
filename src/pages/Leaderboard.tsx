@@ -1,8 +1,15 @@
 import { useRankings } from '../hooks/useRankings';
 import { useUserStore } from '../stores/userStore';
-import { ClipboardIcon } from '@heroicons/react/24/outline';
 
 const PAGE_SIZE = 20;
+
+const maskUserId = (id: string) => {
+  if (id.length <= 8) return id;
+  const start = id.slice(0, 4);
+  const end = id.slice(-4);
+  const masked = '*'.repeat(8);
+  return `${start}${masked}${end}`;
+};
 
 const Leaderboard = () => {
   const currentUser = useUserStore(state => state.user);
@@ -27,6 +34,16 @@ const Leaderboard = () => {
 
   return (
     <div className="space-y-6">
+      <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+        <div className="flex">
+          <div className="ml-3">
+            <p className="text-sm text-yellow-700">
+              由於部分玩家登入別人的帳戶和無效帳戶，現在複製好友ID功能關閉
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -57,16 +74,8 @@ const Leaderboard = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.rank}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 flex items-center">
-                  {user.id}
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(user.id);
-                    }}
-                    className="ml-2 text-gray-400 hover:text-gray-600"
-                  >
-                    <ClipboardIcon className="h-4 w-4" />
-                  </button>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {maskUserId(user.id)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.collectedCount}/150
