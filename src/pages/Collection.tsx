@@ -34,16 +34,36 @@ const Collection = () => {
     }
   };
 
-  const filteredPokemons = pokemons.filter(pokemon => {
-    if (packFilter !== 'all' && !isPokemonInPack(pokemon.id, packFilter)) return false;
-    if (typeFilter !== 'all' && pokemon.type !== typeFilter) return false;
-    if (collectionFilter !== 'all') {
-      const isCollected = userData?.collections.A1.collectedPokemon.includes(pokemon.id);
-      if (collectionFilter === 'collected' && !isCollected) return false;
-      if (collectionFilter === 'uncollected' && isCollected) return false;
+  const filterPokemons = () => {
+    let filtered = currentSeries.pokemons;
+
+    // 如果選擇了特定卡包
+    if (packFilter !== 'all') {
+      filtered = filtered.filter(pokemon => 
+        isPokemonInPack(pokemon.id, packFilter)
+      );
     }
-    return true;
-  });
+
+    // 如果選擇了特定屬性
+    if (typeFilter !== 'all') {
+      filtered = filtered.filter(pokemon => 
+        pokemon.type === typeFilter
+      );
+    }
+
+    // 根據收集狀態過濾
+    if (collectionFilter !== 'all') {
+      const isCollected = collectionFilter === 'collected';
+      filtered = filtered.filter(pokemon => 
+        isCollected === userData?.collections.A1.collectedPokemon.includes(pokemon.id)
+      );
+    }
+
+    // 按照 ID 排序
+    return filtered.sort((a, b) => a.id - b.id);
+  };
+
+  const filteredPokemons = filterPokemons();
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-full">載入中...</div>;

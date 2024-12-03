@@ -140,7 +140,24 @@ export const A1Series = {
     { id: 147, name: "迷你龍", type: "龍", packId: "A1-2" },
     { id: 148, name: "哈克龍", type: "龍", packId: "A1-2" },
     { id: 149, name: "快龍", type: "龍", packId: "A1-2" },
-    { id: 150, name: "超夢", type: "超", packId: "A1-2" }
+    { id: 150, name: "超夢", type: "超", packId: "A1-2" },
+    { id: 19, name: "小拉達", type: "普", packId: "A1-1" },
+    { id: 20, name: "拉達", type: "普", packId: "A1-1" },
+    { id: 23, name: "阿柏蛇", type: "惡", packId: "A1-1" },
+    { id: 24, name: "阿柏怪", type: "惡", packId: "A1-1" },
+    { id: 27, name: "穿山鼠", type: "鬥", packId: "A1-1" },
+    { id: 28, name: "穿山王", type: "鬥", packId: "A1-1" },
+    { id: 54, name: "可達鴨", type: "水", packId: "A1-1" },
+    { id: 55, name: "哥達鴨", type: "水", packId: "A1-1" },
+    { id: 77, name: "小火馬", type: "火", packId: "A1-1" },
+    { id: 78, name: "烈焰馬", type: "火", packId: "A1-1" },
+    { id: 79, name: "呆呆獸", type: "水", packId: "A1-1" },
+    { id: 80, name: "呆殼獸", type: "水", packId: "A1-1" },
+    { id: 83, name: "大蔥鴨", type: "普", packId: "A1-1" },
+    { id: 84, name: "嘟嘟", type: "普", packId: "A1-1" },
+    { id: 85, name: "嘟嘟利", type: "普", packId: "A1-1" },
+    { id: 127, name: "凱羅斯", type: "草", packId: "A1-1" },
+    { id: 133, name: "伊布", type: "普", packId: "A1-1" }
   ],
   // 多卡包寶可夢
   multiPackPokemons: {

@@ -20,14 +20,20 @@ export const currentSeries: Series = A1Series;
 
 // 輔助函數：檢查寶可夢是否在特定卡包中
 export const isPokemonInPack = (pokemonId: number, packId: string) => {
-  // 檢查是否是多卡包寶可夢（標記為「全」的寶可夢）
-  if (currentSeries.multiPackPokemons[pokemonId]) {
-    return true; // 如果是「全」的寶可夢，在任何卡包篩選下都應該顯示
+  // 檢查是否為多卡包寶可夢
+  const multiPackPokemon = currentSeries.multiPackPokemons[pokemonId];
+  if (multiPackPokemon) {
+    return multiPackPokemon.includes(packId); // 如果是多卡包寶可夢，檢查是否包含在該卡包中
   }
   
-  // 如果不是「全」的寶可夢，則檢查是否屬於特定卡包
+  // 一般寶可夢的檢查邏輯
   const pokemon = currentSeries.pokemons.find(p => p.id === pokemonId);
   return pokemon?.packId === packId;
+};
+
+// 新增函數用於判斷是否為多卡包寶可夢
+export const isMultiPackPokemon = (pokemonId: number) => {
+  return !!currentSeries.multiPackPokemons[pokemonId];
 };
 
 // 導出當前系列的所有數據

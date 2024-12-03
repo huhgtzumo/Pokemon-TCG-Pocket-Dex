@@ -2,6 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { collection, query, orderBy, limit, startAfter, getDocs, QueryConstraint } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { User } from '../types';
+import { currentSeries, isMultiPackPokemon } from '../data/pokemons';
 
 const PAGE_SIZE = 20;
 
@@ -39,11 +40,17 @@ export const useRankings = () => {
       
       const rankings = snapshot.docs.map((doc, index) => {
         const data = doc.data() as User;
+        const collectedPokemon = data.collections.A1.collectedPokemon;
+        
+        const collectedCount = collectedPokemon.length;
+        
+        const progress = (collectedCount / 150) * 100;
+
         return {
           id: doc.id,
           rank: index + 1,
-          collectedCount: data.collections.A1.collectedPokemon.length,
-          progress: data.collections.A1.progress,
+          collectedCount,
+          progress,
           lastUpdated: data.lastUpdated
         };
       });
