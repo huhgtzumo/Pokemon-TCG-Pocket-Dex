@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { collection, query, orderBy, limit, startAfter, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, limit, startAfter, getDocs, QueryConstraint } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { User } from '../types';
 
@@ -22,15 +22,17 @@ export const useRankings = () => {
     queryKey: ['rankings'],
     queryFn: async ({ pageParam }) => {
       const usersRef = collection(db, 'users');
-      const constraints = [
-        orderBy('collections.A1.progress', 'desc')
+      
+      const queryConstraints: QueryConstraint[] = [
+        orderBy('collections.A1.progress', 'desc'),
+        limit(PAGE_SIZE)
       ];
-      if (pageParam) {
-        constraints.push(startAfter(pageParam));
-      }
-      constraints.push(limit(PAGE_SIZE));
 
-      const q = query(usersRef, ...constraints);
+      if (pageParam) {
+        queryConstraints.push(startAfter(pageParam));
+      }
+
+      const q = query(usersRef, ...queryConstraints);
 
       const snapshot = await getDocs(q);
       const lastDoc = snapshot.docs[snapshot.docs.length - 1];
