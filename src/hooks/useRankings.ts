@@ -37,7 +37,7 @@ export const useRankings = () => {
       const snapshot = await getDocs(q);
       const lastDoc = snapshot.docs[snapshot.docs.length - 1];
       
-      const rankings = snapshot.docs.map((doc, index) => {
+      const rankings = snapshot.docs.map((doc) => {
         const data = doc.data() as User;
         const collectedPokemon = data.collections.A1.collectedPokemon;
         

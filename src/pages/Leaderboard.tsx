@@ -1,7 +1,6 @@
 import { useRankings } from '../hooks/useRankings';
 import { useUserStore } from '../stores/userStore';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
-import { CrownIcon } from '@heroicons/react/24/solid';
 
 const PAGE_SIZE = 20;
 
