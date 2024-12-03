@@ -2,7 +2,6 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { collection, query, orderBy, limit, startAfter, getDocs, QueryConstraint } from 'firebase/firestore';
 import { db } from '../services/firebase';
 import { User } from '../types';
-import { currentSeries, isMultiPackPokemon } from '../data/pokemons';
 
 const PAGE_SIZE = 20;
 

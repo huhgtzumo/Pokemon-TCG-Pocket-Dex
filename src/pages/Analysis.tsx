@@ -1,9 +1,8 @@
+import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../stores/userStore';
 import { getUserData } from '../services/firebase';
 import { currentSeries, isPokemonInPack, isMultiPackPokemon } from '../data/pokemons';
-import { A1Series } from '../data/series/A1';
-import { useMemo } from 'react';
 
 interface PackAnalysis {
   packId: string;
@@ -183,7 +182,7 @@ const Analysis = () => {
           <div>
             <h4 className="font-medium mb-2">未收集：</h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {multiPackAnalysis.uncollectedPokemons.map(pokemon => (
+              {multiPackAnalysis.uncollectedPokemons.map((pokemon) => (
                 <div 
                   key={pokemon.id}
                   className="text-sm p-2 bg-gray-50 rounded"

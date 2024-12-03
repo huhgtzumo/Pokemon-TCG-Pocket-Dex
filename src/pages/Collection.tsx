@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../stores/userStore';
 import { getUserData, updateUserCollection } from '../services/firebase';
-import { pokemons, types, isPokemonInPack, currentSeries } from '../data/pokemons';
+import { types, isPokemonInPack, currentSeries } from '../data/pokemons';
 import type { PackId } from '../types';
 
 // 使用 A1.ts 中定義的包名稱
