@@ -38,12 +38,12 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
-        <h1 className="text-2xl font-bold text-center mb-2">Pokemon TCG Pocket 圖鑑追蹤（A1）</h1>
+        <h1 className="text-2xl font-bold text-center mb-2">Pokemon TCG Pocket 圖鑑追蹤（A1夢幻）</h1>
         <p className="text-gray-500 text-sm text-center mb-6">提供高 CP 值抽卡策略，助你快速獲得夢幻</p>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="userId" className="block text-sm font-medium text-gray-700 mb-1">
-              使用你的好友ID
+              使用你的好友ID進入
             </label>
             <input
               type="text"
