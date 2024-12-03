@@ -117,7 +117,7 @@ const Analysis = () => {
       <div className="bg-white p-4 rounded-lg shadow">
         <h3 className="text-lg font-medium text-purple-600">解鎖夢幻：</h3>
         <p className="mt-2 text-gray-600">
-          當玩家收集齊關都 150 種寶可夢，即會完成「關都圖鑑成就」即可解鎖一張實境「夢幻」卡。
+          當玩家收集齊關都 150 種寶可夢，即會完成「關都圖鑑成就」並解鎖一張實境卡「夢幻」。
         </p>
       </div>
 
