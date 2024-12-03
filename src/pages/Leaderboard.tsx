@@ -1,6 +1,9 @@
 import { useRankings } from '../hooks/useRankings';
 import { useUserStore } from '../stores/userStore';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
+import { CrownIcon } from '@heroicons/react/24/solid';
+
+const PAGE_SIZE = 20;
 
 const Leaderboard = () => {
   const currentUser = useUserStore(state => state.user);
@@ -16,7 +19,12 @@ const Leaderboard = () => {
     return <div className="flex justify-center items-center h-full">載入中...</div>;
   }
 
-  const rankings = data?.pages.flatMap(page => page.rankings) || [];
+  const rankings = data?.pages.flatMap((page, pageIndex) => 
+    page.rankings.map((ranking, index) => ({
+      ...ranking,
+      rank: pageIndex * PAGE_SIZE + index + 1
+    }))
+  ) || [];
 
   return (
     <div className="space-y-6">
@@ -42,7 +50,10 @@ const Leaderboard = () => {
             {rankings.map((user) => (
               <tr 
                 key={user.id}
-                className={currentUser?.id === user.id ? 'bg-indigo-50' : ''}
+                className={`
+                  ${currentUser?.id === user.id ? 'bg-indigo-50' : ''}
+                  ${user.progress === 100 ? 'font-semibold' : ''}
+                `}
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.rank}
@@ -63,6 +74,7 @@ const Leaderboard = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {user.progress.toFixed(1)}%
+                  {user.progress === 100 && " 👑"}
                 </td>
               </tr>
             ))}

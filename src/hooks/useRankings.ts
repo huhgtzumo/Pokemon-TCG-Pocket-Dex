@@ -42,12 +42,11 @@ export const useRankings = () => {
         const collectedPokemon = data.collections.A1.collectedPokemon;
         
         const collectedCount = collectedPokemon.length;
-        
         const progress = (collectedCount / 150) * 100;
 
         return {
           id: doc.id,
-          rank: index + 1,
+          rank: 0,
           collectedCount,
           progress,
           lastUpdated: data.lastUpdated
