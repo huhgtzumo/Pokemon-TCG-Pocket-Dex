@@ -97,7 +97,7 @@ const Collection = () => {
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-4">
             <span>總進度</span>
-            <span className="text-gray-400 text-sm">點選你收集到的寶可夢</span>
+            <span className="text-gray-400 text-sm">點選你收集到的寶可夢（EX也算有喔！）</span>
           </div>
           <span>{userData?.collections.A1.collectedPokemon.length || 0}/150</span>
         </div>
