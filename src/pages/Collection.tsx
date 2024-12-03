@@ -14,9 +14,15 @@ const packsMap: Record<PackId, string> = {
 
 const Collection = () => {
   const user = useUserStore(state => state.user);
-  const [packFilter, setPackFilter] = useState<string>('all');
-  const [typeFilter, setTypeFilter] = useState<string>('all');
-  const [collectionFilter, setCollectionFilter] = useState<string>('all');
+  const [packFilter, setPackFilter] = useState<string>(
+    localStorage.getItem('packFilter') || 'all'
+  );
+  const [typeFilter, setTypeFilter] = useState<string>(
+    localStorage.getItem('typeFilter') || 'all'
+  );
+  const [collectionFilter, setCollectionFilter] = useState<string>(
+    localStorage.getItem('collectionFilter') || 'all'
+  );
 
   const { data: userData, isLoading, refetch } = useQuery({
     queryKey: ['userData', user?.id],
@@ -65,6 +71,21 @@ const Collection = () => {
 
   const filteredPokemons = filterPokemons();
 
+  const handlePackFilter = (value: string) => {
+    setPackFilter(value);
+    localStorage.setItem('packFilter', value);
+  };
+
+  const handleTypeFilter = (value: string) => {
+    setTypeFilter(value);
+    localStorage.setItem('typeFilter', value);
+  };
+
+  const handleCollectionFilter = (value: string) => {
+    setCollectionFilter(value);
+    localStorage.setItem('collectionFilter', value);
+  };
+
   if (isLoading) {
     return <div className="flex justify-center items-center h-full">載入中...</div>;
   }
@@ -93,7 +114,7 @@ const Collection = () => {
         <div className="grid grid-cols-3 gap-4">
           <select 
             value={packFilter}
-            onChange={(e) => setPackFilter(e.target.value)}
+            onChange={(e) => handlePackFilter(e.target.value)}
             className="border rounded-md p-2"
           >
             <option value="all">全部卡包</option>
@@ -103,7 +124,7 @@ const Collection = () => {
           </select>
           <select 
             value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
+            onChange={(e) => handleTypeFilter(e.target.value)}
             className="border rounded-md p-2"
           >
             <option value="all">全部屬性</option>
@@ -113,7 +134,7 @@ const Collection = () => {
           </select>
           <select 
             value={collectionFilter}
-            onChange={(e) => setCollectionFilter(e.target.value)}
+            onChange={(e) => handleCollectionFilter(e.target.value)}
             className="border rounded-md p-2"
           >
             <option value="all">全部</option>
