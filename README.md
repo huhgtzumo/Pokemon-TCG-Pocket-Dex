@@ -47,11 +47,6 @@ npm run dev
 2. 啟用 Authentication 和 Firestore
 3. 設置安全規則
 
-### 域名設置
-1. 購買域名（推薦使用 Cloudflare）
-2. 設置 DNS 記錄
-3. 配置 SSL 證書
-
 ### 服務器部署
 - 使用 Firebase Hosting（推薦）
 ```bash
@@ -64,17 +59,10 @@ firebase deploy
 - 使用 Conventional Commits
 - 代碼審查流程
 
-## 🤝 貢獻指南
-歡迎提交 Pull Request 或創建 Issue！
-
-## 📄 授權協議
-MIT License
-
 ## 👥 團隊成員
-- 開發者：[Your Name]
-- 設計：[Designer Name]
+- 開發者： ZM
 
 ## 📞 聯繫方式
-- Email: your.email@example.com
-- Twitter: @yourusername
+- TG: https://t.me/zimmerisme 
+
 
