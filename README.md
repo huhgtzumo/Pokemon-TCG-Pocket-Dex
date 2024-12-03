@@ -71,8 +71,10 @@ firebase deploy
 MIT License
 
 ## 👥 團隊成員
-- 開發者：ZM
+- 開發者：[Your Name]
+- 設計：[Designer Name]
 
 ## 📞 聯繫方式
-- Email: gm@zimogogo.com
+- Email: your.email@example.com
+- Twitter: @yourusername
 

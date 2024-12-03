@@ -2,7 +2,15 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '../stores/userStore';
 import { getUserData, updateUserCollection } from '../services/firebase';
-import { pokemons, packs, types, isPokemonInPack, currentSeries } from '../data/pokemons';
+import { pokemons, types, isPokemonInPack, currentSeries } from '../data/pokemons';
+import type { PackId } from '../types';
+
+// 使用 A1.ts 中定義的包名稱
+const packsMap: Record<PackId, string> = {
+  'A1-1': '皮卡丘包',
+  'A1-2': '超夢包',
+  'A1-3': '噴火龍包'
+};
 
 const Collection = () => {
   const user = useUserStore(state => state.user);
@@ -66,7 +74,7 @@ const Collection = () => {
             className="border rounded-md p-2"
           >
             <option value="all">全部卡包</option>
-            {Object.entries(packs).map(([id, name]) => (
+            {Object.entries(packsMap).map(([id, name]) => (
               <option key={id} value={id}>{name}</option>
             ))}
           </select>
@@ -112,7 +120,9 @@ const Collection = () => {
                 {isMultiPack ? (
                   <div className="text-sm text-gray-500">全部卡包</div>
                 ) : (
-                  <div className="text-sm text-gray-500">{packs[pokemon.packId]}</div>
+                  <div className="text-sm text-gray-500">
+                    {packsMap[pokemon.packId as PackId]}
+                  </div>
                 )}
               </div>
             </div>

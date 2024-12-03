@@ -1,8 +1,22 @@
 import { A1Series } from './series/A1';
+import { Pokemon } from '../types';
 
 export const types = ["草", "火", "水", "雷", "鬥", "超", "普", "惡", "龍"] as const;
 
-export const currentSeries = A1Series;
+// 定義 multiPackPokemons 的類型
+interface MultiPackPokemons {
+  [key: number]: string[];  // 數字作為鍵，字符串數組作為值
+}
+
+// 確保 currentSeries 有正確的類型
+interface Series {
+  multiPackPokemons: MultiPackPokemons;
+  pokemons: Array<Pokemon>;  // 假設 Pokemon 類型已存在
+  packs: Record<string, string>;
+}
+
+// 確保 currentSeries 符合類型定義
+export const currentSeries: Series = A1Series;
 
 // 輔助函數：檢查寶可夢是否在特定卡包中
 export const isPokemonInPack = (pokemonId: number, packId: string) => {

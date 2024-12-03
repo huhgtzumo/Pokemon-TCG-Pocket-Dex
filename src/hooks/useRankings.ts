@@ -5,28 +5,44 @@ import { User } from '../types';
 
 const PAGE_SIZE = 20;
 
+interface RankingPage {
+  rankings: Array<{
+    id: string;
+    rank: number;
+    collectedCount: number;
+    progress: number;
+    lastUpdated: Date;
+  }>;
+  lastDoc: any;
+  hasMore: boolean;
+}
+
 export const useRankings = () => {
-  return useInfiniteQuery({
+  return useInfiniteQuery<RankingPage>({
     queryKey: ['rankings'],
     queryFn: async ({ pageParam }) => {
       const usersRef = collection(db, 'users');
-      const q = query(
-        usersRef,
-        orderBy('collections.A1.progress', 'desc'),
-        pageParam ? startAfter(pageParam) : limit(PAGE_SIZE)
-      );
-      
+      const constraints = [
+        orderBy('collections.A1.progress', 'desc')
+      ];
+      if (pageParam) {
+        constraints.push(startAfter(pageParam));
+      }
+      constraints.push(limit(PAGE_SIZE));
+
+      const q = query(usersRef, ...constraints);
+
       const snapshot = await getDocs(q);
       const lastDoc = snapshot.docs[snapshot.docs.length - 1];
       
       const rankings = snapshot.docs.map((doc, index) => {
         const data = doc.data() as User;
         return {
-          id: data.id,
+          id: doc.id,
           rank: index + 1,
           collectedCount: data.collections.A1.collectedPokemon.length,
           progress: data.collections.A1.progress,
-          lastUpdated: data.lastUpdated.toDate()
+          lastUpdated: data.lastUpdated
         };
       });
 
@@ -36,8 +52,8 @@ export const useRankings = () => {
         hasMore: rankings.length === PAGE_SIZE
       };
     },
-    getNextPageParam: (lastPage) => lastPage.lastDoc,
-    staleTime: 1000 * 60 * 1, // 1 minute
-    cacheTime: 1000 * 60 * 5, // 5 minutes
+    getNextPageParam: (lastPage) => lastPage.hasMore ? lastPage.lastDoc : undefined,
+    initialPageParam: null,
+    gcTime: 1000 * 60 * 5,
   });
 }; 

@@ -43,7 +43,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="userId" className="block text-sm font-medium text-gray-700 mb-1">
-              使用你的好友ID登入
+              使用你的好友ID
             </label>
             <input
               type="text"

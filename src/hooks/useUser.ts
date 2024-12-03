@@ -1,27 +1,31 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUserData } from '../services/firebase';
-import { useUserStore } from '../stores/userStore';
+import { User } from '../types';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../services/firebase';
 
-export const useUser = () => {
+async function fetchUserData(userId: string): Promise<User | null> {
+  const docRef = doc(db, 'users', userId);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() as User : null;
+}
+
+export function useUser(user?: { id: string }) {
   const queryClient = useQueryClient();
-  const user = useUserStore(state => state.user);
-
-  const { data: userData, isLoading, error } = useQuery({
-    queryKey: ['userData', user?.id],
-    queryFn: () => getUserData(user?.id || ''),
-    enabled: !!user?.id,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    cacheTime: 1000 * 60 * 30, // 30 minutes
-  });
-
-  const invalidateUserData = () => {
-    queryClient.invalidateQueries(['userData', user?.id]);
-  };
 
   return {
-    userData,
-    isLoading,
-    error,
-    invalidateUserData
+    ...useQuery<User | null>({
+      queryKey: ['userData', user?.id],
+      queryFn: async () => {
+        if (!user?.id) return null;
+        return fetchUserData(user.id);
+      },
+      gcTime: 1000 * 60 * 30,
+      enabled: !!user?.id,
+    }),
+    invalidateUserData: () => {
+      queryClient.invalidateQueries({ 
+        queryKey: ['userData', user?.id] 
+      });
+    }
   };
-}; 
+} 
