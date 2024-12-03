@@ -73,8 +73,11 @@ const Collection = () => {
     <div className="space-y-6">
       {/* 進度條 */}
       <div className="bg-white p-4 rounded-lg shadow">
-        <div className="flex justify-between mb-2">
-          <span>總進度</span>
+        <div className="flex justify-between items-center mb-2">
+          <div className="flex items-center gap-4">
+            <span>總進度</span>
+            <span className="text-gray-400 text-sm">點選你收集到的寶可夢</span>
+          </div>
           <span>{userData?.collections.A1.collectedPokemon.length || 0}/150</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5">
